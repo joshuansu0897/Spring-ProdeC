@@ -231,33 +231,4 @@ public class MaestroController {
 
 	}
 
-	// getR
-	@RequestMapping(value = "/maestros/socialMedias", method = RequestMethod.PATCH, headers = "Accept=application/json")
-	public ResponseEntity<?> assignMaestroSocialMedia(@RequestBody Maestro m, UriComponentsBuilder uri) {
-		if (m == null) {
-			return new ResponseEntity(new MessageType("Maestro null"), HttpStatus.NOT_FOUND);
-		}
-		if (m.getIdMaestro() <= 0) {
-			return new ResponseEntity(new MessageType("se necesita idMaestro, idSocialMedia y nickname"),
-					HttpStatus.NO_CONTENT);
-		}
-		Maestro ms = _maestroService.findMaestroById(m.getIdMaestro());
-		if (ms == null) {
-			return new ResponseEntity(new MessageType("No se encontro el maestro"), HttpStatus.NOT_FOUND);
-		}
-
-		if (ms.getMaestroSocialMedias() == null && ms.getMaestroSocialMedias().isEmpty()) {
-			return new ResponseEntity(new MessageType("se necesita idMaestro, idSocialMedia y nickname"),
-					HttpStatus.NO_CONTENT);
-		}
-
-		for (MaestroSocialMedia msm : ms.getMaestroSocialMedias()) {
-			if (msm.getSocialMedia().getIdSocialMedia() <= 0 || msm.getNickname() == null) {
-				return new ResponseEntity(new MessageType("se necesita idMaestro, idSocialMedia y nickname"),
-						HttpStatus.NO_CONTENT);
-			}
-		}
-
-	}
-
 }
